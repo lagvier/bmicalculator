@@ -7,6 +7,11 @@ shinyServer(function(input, output) {
 		gender<- ifelse(input$gender=='1',"Gender: Male","Gender: Female")
 		return(gender)
 	})
+	# Present Calculation type
+	output$otype <- renderPrint({
+		Type<- ifelse(input$type=='1',"Type: Kgs","Type: Pounds")
+		return(Type)
+	})
 	# Present Age
 	output$oage <- renderPrint({
 		age<-as.numeric(Sys.Date()-input$dob)/365.25
@@ -27,10 +32,11 @@ shinyServer(function(input, output) {
 	})
 	#Possible comments based on BMI values based on wikipedia definitions
 	output$ocomment<-renderPrint({
-		nBMI<- input$weight/(input$height*input$height)
+		ifelse(input$Type==1,nBMI<- input$weight/(input$height*input$height),
+				nBMI<- input$weight*703/(input$height*input$height))
 		ifelse(nBMI<15,oBMI<-"Very severely underweight",
 			ifelse(nBMI<16,oBMI<-"Severely underweight",	
-			ifelse(nBMI<18.5,oBMI<-"Underweight",
+			ifelse(nBMI<=18.5,oBMI<-"Underweight",
 			ifelse(nBMI<25,oBMI<-"Normal/healthy weight",
 			ifelse(nBMI<30,oBMI<-"Overweight",
 			ifelse(nBMI<35,oBMI<-"Obese Class I (Moderately obese)",
