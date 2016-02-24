@@ -8,10 +8,11 @@ shinyUI(
 
 		# Required fields body weight(kgs), height in kilograms
 		sidebarPanel(
-			numericInput("weight","Body weight(Kgs): ",0,min=1,max=500,step=0.1),
-			numericInput("height","Enter height(m): ",0.2,min=0.2,max=10,step=0.01),
+			numericInput("weight","Body weight: ",0,min=1,max=500,step=0.1),
+			numericInput("height","Enter height: ",0.2,min=0.2,max=10,step=0.01),
 			dateInput("dob","Date of birth: ",value = Sys.Date()),
 			radioButtons("gender","Gender: ",c("Male"="1","Female"="2")),
+			radioButtons("type","type: ",c("Kgs/Metres"="1","Pounds/Inches"="2")),
 			submitButton("Submit")
 		),
 		
@@ -24,6 +25,7 @@ shinyUI(
 			verbatimTextOutput("oage"),
 			verbatimTextOutput("oheight"),
 			verbatimTextOutput("oweight"),
+			verbatimTextOutput("otype"),
 			
 			h3("BMI Results"),
 			verbatimTextOutput("BMI"),
